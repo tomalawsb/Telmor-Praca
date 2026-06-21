@@ -1,0 +1,17 @@
+{
+  "name": "telmor-praca-pwa",
+  "version": "15.0.0",
+  "private": true,
+  "description": "Telmor Praca PWA - lokalna wersja pod GitHub Pages",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-basic-ssl": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}
