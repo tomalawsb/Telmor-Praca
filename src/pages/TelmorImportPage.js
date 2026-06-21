@@ -1,18 +1,18 @@
 import { getTelmorModuleStatus, testLocalTelmorCredentials } from '../telmor/telmorStatus.js';
 import { TELMOR_IMPORT_TYPES, TELMOR_IMPORT_TYPE_LABELS } from '../telmor/telmorConfig.js';
-import { analyzeTelmorSnapshot, getLastTelmorImportSummary, saveTelmorImportLocally } from '../telmor/telmorSyncService.js';
+import { analyzeTelmorSnapshot, getLastTelmorImportSummary, saveTelmorImportLocally } from '../telmor/telmorImportService.js';
 
 let lastParseResult = null;
 
-export function TelmorSyncPage() {
-  setTimeout(() => initTelmorSyncPage(), 0);
+export function TelmorImportPage() {
+  setTimeout(() => initTelmorImportPage(), 0);
 
   return `
     <div class="page telmor-sync-page">
       <div class="page-title compact-title">
         <div>
-          <h1>Moduł Telmor</h1>
-          <p>Etap 8: przygotowanie importu, parsera i mapowania danych z portalu źródłowego.</p>
+          <h1>Import Telmor</h1>
+          <p>Ręczne wklejanie HTML albo tekstu z portalu Telmor. Dane są zapisywane tylko lokalnie.</p>
         </div>
         <a class="secondary-button" href="#/settings">Dane logowania</a>
       </div>
@@ -75,7 +75,7 @@ export function TelmorSyncPage() {
   `;
 }
 
-async function initTelmorSyncPage() {
+async function initTelmorImportPage() {
   const statusMessage = document.querySelector('#telmor-status-message');
   const importMessage = document.querySelector('#telmor-import-message');
   const form = document.querySelector('#telmor-import-form');
@@ -154,15 +154,15 @@ async function refreshTelmorStatus() {
   if (!badge || !list) return;
 
   const status = await getTelmorModuleStatus();
-  badge.textContent = status.readyForLiveSync ? 'Gotowy lokalnie' : 'Import ręczny';
-  badge.dataset.tone = status.readyForLiveSync ? 'success' : 'warning';
+  badge.textContent = status.readyForManualImport ? 'Import ręczny' : 'Wymaga sprawdzenia';
+  badge.dataset.tone = status.readyForManualImport ? 'success' : 'warning';
 
   list.innerHTML = `
     ${statusItem('Sejf lokalny', status.vaultSupported ? 'obsługiwany' : 'brak obsługi', status.vaultSupported)}
     ${statusItem('Dane Telmor', status.credentialsSaved ? `zapisane lokalnie: ${escapeHtml(status.loginHint)}` : 'brak zapisanych danych', status.credentialsSaved)}
     ${statusItem('Sesja Telmor', status.sessionActive ? `aktywna lokalnie: ${formatDateTime(status.sessionLastCheckAt)}` : 'nieaktywna / niesprawdzona', status.sessionActive)}
     ${statusItem('Import ręczny', 'aktywny', true)}
-    ${statusItem('Pobieranie na żywo', 'jeszcze nieuruchomione', false)}
+    ${statusItem('Połączenie z serwerem', 'brak - aplikacja działa lokalnie', true)}
   `;
 }
 

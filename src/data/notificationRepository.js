@@ -2,10 +2,10 @@ import { COLLECTIONS } from '../config/collections.config.js';
 import { notifications as demoNotifications } from './demoData.js';
 import { createNotificationModel } from './dataSchema.js';
 import { listUserDocuments, saveUserDocument } from '../local/localDataService.js';
-import { listWithCacheFallback, saveWithOfflineQueue } from './repositorySyncHelpers.js';
+import { listLocalFirst, saveLocalDocument } from './repositoryLocalHelpers.js';
 
 export async function getNotifications({ limit = 50 } = {}) {
-  return listWithCacheFallback({
+  return listLocalFirst({
     collectionName: COLLECTIONS.NOTIFICATIONS,
     loadFromLocalStore: () => listUserDocuments(COLLECTIONS.NOTIFICATIONS, { orderByField: 'createdAt', direction: 'DESCENDING', limit }),
     loadDemo: () => demoNotifications,
@@ -15,7 +15,7 @@ export async function getNotifications({ limit = 50 } = {}) {
 
 export async function saveNotification(notification) {
   const model = createNotificationModel(notification);
-  return saveWithOfflineQueue({
+  return saveLocalDocument({
     collectionName: COLLECTIONS.NOTIFICATIONS,
     documentId: model.id,
     data: model,

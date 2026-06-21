@@ -3,7 +3,6 @@ import { saveOrders } from './orderRepository.js';
 import { saveCustomer } from './customerRepository.js';
 import { saveHistoryEntry } from './historyRepository.js';
 import { saveNotification } from './notificationRepository.js';
-import { saveSyncState } from './syncStateRepository.js';
 
 export async function seedDemoDataToLocalStore() {
   const savedOrders = await saveOrders(orders);
@@ -15,11 +14,6 @@ export async function seedDemoDataToLocalStore() {
   for (const entry of getAllHistoryItems()) savedHistory.push(await saveHistoryEntry(entry));
   for (const notification of notifications) savedNotifications.push(await saveNotification(notification));
 
-  await saveSyncState({
-    id: 'main',
-    lastFullSyncAt: new Date().toISOString(),
-    lastError: ''
-  });
 
   return {
     orders: savedOrders.length,

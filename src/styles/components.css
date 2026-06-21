@@ -1031,7 +1031,7 @@ code {
   font-size: 13px;
 }
 
-/* Etap 9 - synchronizacja */
+/* Karty statusu danych lokalnych */
 .sync-summary-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(160px, 1fr));

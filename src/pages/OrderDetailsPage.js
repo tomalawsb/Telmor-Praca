@@ -149,7 +149,7 @@ function historyTab(history) {
     <section class="panel history-panel">
       <div class="panel-header"><h2>Historia zlecenia</h2><span>${history.length} wpisy</span></div>
       <div class="timeline">
-        ${(history.length ? history : [{ date: '-', title: 'Brak historii', author: 'System', text: 'Dane pojawią się po synchronizacji.' }]).map((item) => `
+        ${(history.length ? history : [{ date: '-', title: 'Brak historii', author: 'System', text: 'Dane pojawią się po imporcie.' }]).map((item) => `
           <article>
             <span class="timeline-dot"></span>
             <div>
@@ -232,7 +232,7 @@ function notesTab(order, notes) {
             </article>
           `).join('')}
         </div>
-      ` : EmptyView({ title: 'Brak notatek', text: 'Dodaj krótką notatkę roboczą do zlecenia. Zapis działa lokalnie i przez kolejkę synchronizacji.' })}
+      ` : EmptyView({ title: 'Brak notatek', text: 'Dodaj krótką notatkę roboczą do zlecenia. Zapis działa lokalnie w tej przeglądarce.' })}
       <form id="note-form" class="note-form" data-order-id="${escapeHtml(order.id)}">
         <textarea id="note-text" class="note-area" placeholder="Dodaj swoją notatkę do tego zlecenia..."></textarea>
         <button id="note-save-button" class="primary-button" type="submit">Zapisz notatkę</button>

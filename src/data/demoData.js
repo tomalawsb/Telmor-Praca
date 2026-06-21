@@ -36,7 +36,7 @@ export const orders = [
       { id: 'att-104750-1', name: 'IMG_20240607_153130.jpg', size: '4,9 MB', type: 'Voucher' }
     ],
     notes: [
-      { id: 'note-104750-1', text: 'Sprawdzić, czy voucher jest czytelny po synchronizacji zdjęcia.', createdBy: 'Tomasz Wolak', createdAt: '2024-06-07T15:40:00.000Z' }
+      { id: 'note-104750-1', text: 'Sprawdzić, czy voucher jest czytelny po dodaniu zdjęcia.', createdBy: 'Tomasz Wolak', createdAt: '2024-06-07T15:40:00.000Z' }
     ]
   },
   {

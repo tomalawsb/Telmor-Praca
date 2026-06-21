@@ -1,7 +1,6 @@
 import { saveCustomer } from '../data/customerRepository.js';
 import { saveHistoryEntry } from '../data/historyRepository.js';
 import { saveOrders } from '../data/orderRepository.js';
-import { saveSyncState } from '../data/syncStateRepository.js';
 import { localDbGet, localDbSet } from '../local/localDb.js';
 import { parseTelmorHtmlSnapshot, parseTelmorTextSnapshot } from './telmorParser.js';
 
@@ -27,14 +26,6 @@ export async function saveTelmorImportLocally(parseResult) {
   for (const customer of parseResult.customers || []) await saveCustomer(customer);
   for (const entry of parseResult.history || []) await saveHistoryEntry(entry);
 
-  await saveSyncState({
-    id: 'telmor-import',
-    lastOpenOrdersSyncAt: new Date().toISOString(),
-    lastClosedOrdersSyncAt: new Date().toISOString(),
-    lastFullSyncAt: new Date().toISOString(),
-    lastError: ''
-  });
-
   await localDbSet(LAST_IMPORT_KEY, summarizeImport(parseResult, 'local'));
 
   return {
@@ -46,7 +37,6 @@ export async function saveTelmorImportLocally(parseResult) {
     message: 'Dane Telmor zapisane lokalnie w tej przeglądarce.'
   };
 }
-
 
 export async function getLastTelmorImportSummary() {
   return localDbGet(LAST_IMPORT_KEY);

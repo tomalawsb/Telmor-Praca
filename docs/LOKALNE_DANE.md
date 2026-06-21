@@ -1,10 +1,24 @@
 # Dane lokalne
 
-Aplikacja zapisuje dane w przeglądarce użytkownika. Po wyczyszczeniu danych strony w przeglądarce dane aplikacji mogą zostać usunięte.
+Ta wersja programu zapisuje dane tylko lokalnie w przeglądarce.
 
-Zakres lokalnego zapisu:
+## Co jest lokalne
 
-- sesja lokalna aplikacji,
-- zlecenia, klienci, historia, notatki i powiadomienia,
-- lokalny status urządzenia,
-- lokalny sejf Telmor.
+- konto aplikacji,
+- dane robocze,
+- zlecenia,
+- klienci,
+- historia,
+- notatki,
+- załączniki,
+- powiadomienia widoczne w aplikacji,
+- dane logowania Telmor zapisane w lokalnym sejfie.
+
+## Czego nie ma
+
+- Firebase,
+- Firestore,
+- Functions,
+- FCM,
+- powiadomień po zamknięciu aplikacji,
+- synchronizacji między urządzeniami.

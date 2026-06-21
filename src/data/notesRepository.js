@@ -2,11 +2,11 @@ import { COLLECTIONS } from '../config/collections.config.js';
 import { orders as demoOrders } from './demoData.js';
 import { createNoteModel } from './dataSchema.js';
 import { fieldFilter, listUserDocuments, saveUserDocument } from '../local/localDataService.js';
-import { listWithCacheFallback, saveWithOfflineQueue } from './repositorySyncHelpers.js';
+import { listLocalFirst, saveLocalDocument } from './repositoryLocalHelpers.js';
 
 export async function getNotesForOrder(orderId, { limit = 50 } = {}) {
   const demoOrder = demoOrders.find((item) => item.id === orderId) || demoOrders[0];
-  return listWithCacheFallback({
+  return listLocalFirst({
     collectionName: COLLECTIONS.NOTES,
     loadFromLocalStore: () => listUserDocuments(COLLECTIONS.NOTES, {
       orderByField: 'updatedAt',
@@ -22,7 +22,7 @@ export async function getNotesForOrder(orderId, { limit = 50 } = {}) {
 
 export async function saveNote(note) {
   const model = createNoteModel(note);
-  return saveWithOfflineQueue({
+  return saveLocalDocument({
     collectionName: COLLECTIONS.NOTES,
     documentId: model.id,
     data: model,

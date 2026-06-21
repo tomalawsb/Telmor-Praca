@@ -2,7 +2,7 @@ import { APP_CONFIG } from '../config/app.config.js';
 import { getAuthModeLabel, getAuthSession, getUserEmail } from '../local/authService.js';
 import { getTelmorCredentialStatus, isCredentialVaultSupported } from '../local/credentialVault.js';
 import { isIndexedDbAvailable, localDbSet, localDbGet, localDbDelete } from '../local/localDb.js';
-import { getSyncDashboardStatus } from '../sync/deviceSyncService.js';
+import { getLocalStoreStatus } from '../local/localStoreStatus.js';
 
 const DIAGNOSTIC_KEY = 'diagnostic_probe';
 
@@ -15,7 +15,7 @@ export async function runDiagnostics() {
   tests.push(await safeTest('Lokalna baza IndexedDB', testIndexedDb));
   tests.push(await safeTest('Lokalny sejf Telmor', testTelmorVault));
   tests.push(checkBrowserCapabilities());
-  tests.push(await safeTest('Dane lokalne', testSyncState));
+  tests.push(await safeTest('Dane lokalne', testLocalDataState));
   tests.push(checkGithubPagesReadiness());
 
   const summary = buildSummary(tests);
@@ -147,20 +147,18 @@ function checkBrowserCapabilities() {
   ]);
 }
 
-async function testSyncState() {
-  const status = await getSyncDashboardStatus();
-  return result('ok', 'Dane lokalne', 'Odczytano lokalny stan urządzenia i cache.', [
+async function testLocalDataState() {
+  const status = await getLocalStoreStatus();
+  return result('ok', 'Dane lokalne', 'Odczytano lokalny stan bazy aplikacji.', [
     detail('Tryb lokalny', status.localOnly ? 'tak' : 'nie'),
     detail('Online', status.online ? 'tak' : 'nie'),
-    detail('Urządzenie', `${status.device.name} / ${status.device.deviceId}`),
-    detail('Kolejka', `${status.queue.count} zmian`),
-    detail('Konflikty', `${status.conflicts.length}`),
-    detail('Kolekcje cache', status.cache.map((item) => `${item.collectionName}:${item.count}`).join(', '))
+    detail('Rekordy lokalne', status.totalRecords),
+    detail('Kolekcje', status.collections.map((item) => `${item.collectionName}:${item.count}`).join(', '))
   ]);
 }
 
 function checkGithubPagesReadiness() {
-  const serviceWorkerPath = '/service-worker.js';
+  const serviceWorkerPath = './service-worker.js';
   return result('ok', 'GitHub Pages / PWA', 'Projekt jest przygotowany jako statyczne PWA.', [
     detail('Build', 'npm run build'),
     detail('Katalog publikacji', 'dist'),

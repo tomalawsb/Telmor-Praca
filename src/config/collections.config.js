@@ -1,13 +1,11 @@
 export const COLLECTIONS = Object.freeze({
   USERS: 'users',
-  DEVICES: 'devices',
   ORDERS: 'orders',
   CUSTOMERS: 'customers',
   ORDER_HISTORY: 'orderHistory',
   ATTACHMENTS: 'attachments',
   NOTES: 'notes',
-  NOTIFICATIONS: 'notifications',
-  SYNC_STATE: 'syncState'
+  NOTIFICATIONS: 'notifications'
 });
 
 export const ORDER_STATUS = Object.freeze({
@@ -25,8 +23,6 @@ export const ORDER_STATUS_TONE = Object.freeze({
   [ORDER_STATUS.CLOSED]: 'green',
   [ORDER_STATUS.CANCELLED]: 'gray'
 });
-
-export const DEFAULT_SYNC_STATE_ID = 'main';
 
 export const SOURCE_SYSTEM = Object.freeze({
   TELMOR: 'telmor',

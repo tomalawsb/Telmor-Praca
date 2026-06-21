@@ -2,7 +2,7 @@ import { COLLECTIONS } from '../config/collections.config.js';
 import { getOrderById as getDemoOrderById } from './demoData.js';
 import { createAttachmentModel } from './dataSchema.js';
 import { listUserDocuments, saveUserDocument } from '../local/localDataService.js';
-import { listWithCacheFallback, saveWithOfflineQueue } from './repositorySyncHelpers.js';
+import { listLocalFirst, saveLocalDocument } from './repositoryLocalHelpers.js';
 import { saveAttachmentFileLocally, formatAttachmentSize } from '../local/attachmentFileStore.js';
 
 export async function getAttachmentsForOrder(orderId, { limit = 200 } = {}) {
@@ -11,7 +11,7 @@ export async function getAttachmentsForOrder(orderId, { limit = 200 } = {}) {
     return items.filter((item) => String(item.orderId) === String(orderId));
   };
 
-  return listWithCacheFallback({
+  return listLocalFirst({
     collectionName: COLLECTIONS.ATTACHMENTS,
     loadFromLocalStore,
     loadDemo: () => getDemoAttachmentsForOrder(orderId),
@@ -22,7 +22,7 @@ export async function getAttachmentsForOrder(orderId, { limit = 200 } = {}) {
 
 export async function saveAttachmentMetadata(attachment) {
   const model = createAttachmentModel(attachment);
-  return saveWithOfflineQueue({
+  return saveLocalDocument({
     collectionName: COLLECTIONS.ATTACHMENTS,
     documentId: model.id,
     data: model,
@@ -48,7 +48,7 @@ export async function createAttachmentFromFile({ order, file, fileKind = 'Zdjęc
     description,
     source: 'manual-device',
     localOnly: true,
-    syncPending: true,
+    localOnly: true,
     createdAt: now,
     updatedAt: now
   });

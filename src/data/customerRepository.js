@@ -2,10 +2,10 @@ import { COLLECTIONS } from '../config/collections.config.js';
 import { getCustomers as getDemoCustomers } from './demoData.js';
 import { createCustomerModel } from './dataSchema.js';
 import { listUserDocuments, readUserDocument, saveUserDocument } from '../local/localDataService.js';
-import { listWithCacheFallback, readWithCacheFallback, saveWithOfflineQueue } from './repositorySyncHelpers.js';
+import { listLocalFirst, readLocalFirst, saveLocalDocument } from './repositoryLocalHelpers.js';
 
 export async function getCustomers({ limit = 100 } = {}) {
-  return listWithCacheFallback({
+  return listLocalFirst({
     collectionName: COLLECTIONS.CUSTOMERS,
     loadFromLocalStore: () => listUserDocuments(COLLECTIONS.CUSTOMERS, { orderByField: 'updatedAt', limit }),
     loadDemo: () => getDemoCustomers(),
@@ -15,7 +15,7 @@ export async function getCustomers({ limit = 100 } = {}) {
 
 export async function getCustomer(customerId) {
   const demoCustomers = getDemoCustomers().map(createCustomerModel);
-  return readWithCacheFallback({
+  return readLocalFirst({
     collectionName: COLLECTIONS.CUSTOMERS,
     documentId: customerId,
     loadFromLocalStore: () => readUserDocument(COLLECTIONS.CUSTOMERS, customerId),
@@ -26,7 +26,7 @@ export async function getCustomer(customerId) {
 
 export async function saveCustomer(customer) {
   const model = createCustomerModel(customer);
-  return saveWithOfflineQueue({
+  return saveLocalDocument({
     collectionName: COLLECTIONS.CUSTOMERS,
     documentId: model.id,
     data: model,

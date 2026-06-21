@@ -1,20 +1,19 @@
-# Architektura — Telmor Praca PWA
+# Architektura
 
-Ta wersja jest statycznym PWA przeznaczonym do publikacji na GitHub Pages.
-
-## Założenia
-
-- brak zewnętrznej bazy danych,
-- brak backendu,
-- brak usług chmurowych,
-- dane robocze są przechowywane lokalnie w przeglądarce,
-- dane logowania Telmor są zapisywane wyłącznie lokalnie w sejfie przeglądarki,
-- powiadomienia działają tylko jako wpisy w otwartej aplikacji.
+Projekt jest statycznym PWA pod GitHub Pages.
 
 ## Główne katalogi
 
-- `src/local/` — lokalna sesja, sejf, baza IndexedDB,
-- `src/data/` — repozytoria danych aplikacji,
-- `src/sync/` — lokalny cache i stan urządzenia,
-- `src/telmor/` — parser i import danych Telmor,
-- `public/service-worker.js` — podstawowy service worker PWA/offline.
+- `src/components/` — wspólne elementy interfejsu,
+- `src/pages/` — ekrany aplikacji,
+- `src/data/` — modele i repozytoria danych,
+- `src/local/` — lokalna baza, sejf danych i usługi przeglądarki,
+- `src/telmor/` — parser oraz ręczny import danych Telmor,
+- `src/search/` — wyszukiwanie lokalne,
+- `src/styles/` — style CSS,
+- `public/` — manifest PWA, ikony, service worker,
+- `.github/workflows/` — publikacja na GitHub Pages.
+
+## Zasada działania
+
+Aplikacja nie używa Firebase, Firestore, FCM ani Functions. Dane są zapisywane lokalnie w przeglądarce przy użyciu IndexedDB/localStorage. Powiadomienia są tylko wpisami widocznymi w otwartej aplikacji.

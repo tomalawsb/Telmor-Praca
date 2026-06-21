@@ -1,8 +1,8 @@
 # Start tutaj
 
-Ta paczka jest wersją PWA pod GitHub Pages.
+Ta paczka to uproszczona wersja PWA pod GitHub Pages.
 
-## Uruchomienie
+## Uruchomienie lokalne
 
 ```powershell
 npm install
@@ -17,9 +17,19 @@ npm run build
 
 Katalog wynikowy: `dist`.
 
+## Publikacja
+
+Najprościej użyć gotowego workflow:
+
+```text
+.github/workflows/pages.yml
+```
+
+Na GitHubie włącz Pages z opcją **GitHub Actions**.
+
 ## Ważne
 
-- nie konfigurujesz żadnej usługi chmurowej,
+- nie konfigurujesz Firebase,
 - nie podajesz żadnych kluczy serwerowych,
 - nie ma powiadomień w tle po zamknięciu aplikacji,
 - dane zostają lokalnie w przeglądarce.

@@ -1,5 +1,5 @@
 export const APP_CONFIG = {
   appName: 'Telmor Praca',
-  versionLabel: '14.0 - 2006261708',
-  stageLabel: 'Etap 14: diagnostyka, stabilizacja i przygotowanie PROD.'
+  versionLabel: '15.1 - 2106262116',
+  stageLabel: 'Etap 15.1 - lokalne PWA GitHub Pages bez Firebase.'
 };

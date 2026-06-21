@@ -39,7 +39,8 @@ export function mapTelmorRowToOrder(row = {}, options = {}) {
     doneAt,
     createdAt: registeredAt || new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    lastSyncAt: new Date().toISOString()
+    lastImportAt: new Date().toISOString(),
+    priority: isUrgentTelmorStatus(firstText(row, ['status', 'stan'])) ? 'Pilne' : 'Standard'
   });
 }
 
@@ -76,8 +77,13 @@ function mapTelmorStatus(value = '') {
   if (!normalized) return ORDER_STATUS.NEW;
   if (normalized.includes('zamkn') || normalized.includes('wykon') || normalized.includes('zakoncz')) return ORDER_STATUS.CLOSED;
   if (normalized.includes('w toku') || normalized.includes('realiz')) return ORDER_STATUS.IN_PROGRESS;
-  if (normalized.includes('piln') || normalized.includes('awaria')) return ORDER_STATUS.URGENT;
+  if (normalized.includes('piln') || normalized.includes('awaria')) return ORDER_STATUS.WAITING;
   return ORDER_STATUS.NEW;
+}
+
+function isUrgentTelmorStatus(value = '') {
+  const normalized = normalize(value);
+  return normalized.includes('piln') || normalized.includes('awaria');
 }
 
 function firstText(row, keys) {

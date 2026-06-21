@@ -2,14 +2,14 @@ import { COLLECTIONS, ORDER_STATUS } from '../config/collections.config.js';
 import { getClosedOrders as getDemoClosedOrders, getOpenOrders as getDemoOpenOrders, getOrderById as getDemoOrderById, orders as demoOrders } from './demoData.js';
 import { createOrderModel } from './dataSchema.js';
 import { listUserDocuments, readUserDocument, saveUserDocument } from '../local/localDataService.js';
-import { listWithCacheFallback, readWithCacheFallback, saveWithOfflineQueue } from './repositorySyncHelpers.js';
+import { listLocalFirst, readLocalFirst, saveLocalDocument } from './repositoryLocalHelpers.js';
 
 export async function getOrders({ mode = 'all', limit = 50 } = {}) {
   const loadFromLocalStore = async () => {
     return listUserDocuments(COLLECTIONS.ORDERS, { orderByField: 'updatedAt', limit });
   };
 
-  return listWithCacheFallback({
+  return listLocalFirst({
     collectionName: COLLECTIONS.ORDERS,
     loadFromLocalStore,
     loadDemo: () => getDemoOrders(mode),
@@ -23,7 +23,7 @@ export async function getOrders({ mode = 'all', limit = 50 } = {}) {
 }
 
 export async function getOrder(orderId) {
-  return readWithCacheFallback({
+  return readLocalFirst({
     collectionName: COLLECTIONS.ORDERS,
     documentId: orderId,
     loadFromLocalStore: () => readUserDocument(COLLECTIONS.ORDERS, orderId),
@@ -34,7 +34,7 @@ export async function getOrder(orderId) {
 
 export async function saveOrder(order) {
   const model = createOrderModel(order);
-  return saveWithOfflineQueue({
+  return saveLocalDocument({
     collectionName: COLLECTIONS.ORDERS,
     documentId: model.id,
     data: model,

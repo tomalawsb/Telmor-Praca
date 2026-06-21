@@ -25,7 +25,7 @@ export async function HistoryPage() {
               </article>
             `).join('')}
           </div>
-        ` : EmptyView({ title: 'Brak historii', text: 'Historia pojawi się po synchronizacji zleceń.' })}
+        ` : EmptyView({ title: 'Brak historii', text: 'Historia pojawi się po imporcie zleceń.' })}
       </section>
     </div>
   `;

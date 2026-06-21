@@ -1,4 +1,4 @@
-import { getCachedCollection, getCachedDocument, removeCachedDocument, upsertCachedDocument } from '../sync/syncLocalCache.js';
+import { getLocalCollection, getLocalDocument, removeLocalDocument, upsertLocalDocument } from './localStore.js';
 
 export function isLocalStoreAvailable() {
   return true;
@@ -13,7 +13,7 @@ export function fieldFilter(field, operator, value) {
 }
 
 export async function listUserDocuments(collectionName, options = {}) {
-  let items = await getCachedCollection(collectionName);
+  let items = await getLocalCollection(collectionName);
 
   if (Array.isArray(options.where)) {
     for (const condition of options.where) {
@@ -32,7 +32,7 @@ export async function listUserDocuments(collectionName, options = {}) {
 }
 
 export async function readUserDocument(collectionName, documentId) {
-  const item = await getCachedDocument(collectionName, documentId);
+  const item = await getLocalDocument(collectionName, documentId);
   if (!item) throw new Error(`Nie znaleziono lokalnego dokumentu: ${collectionName}/${documentId}.`);
   return item;
 }
@@ -43,12 +43,12 @@ export async function saveUserDocument(collectionName, documentId, data = {}) {
     id: data.id || documentId,
     updatedAt: new Date().toISOString()
   };
-  await upsertCachedDocument(collectionName, document);
+  await upsertLocalDocument(collectionName, document);
   return document;
 }
 
 export async function deleteUserDocument(collectionName, documentId) {
-  await removeCachedDocument(collectionName, documentId);
+  await removeLocalDocument(collectionName, documentId);
   return true;
 }
 

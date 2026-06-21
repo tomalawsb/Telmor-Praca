@@ -14,8 +14,7 @@ export async function getTelmorModuleStatus() {
     sessionActive: Boolean(sessionState.loggedIn),
     sessionLastCheckAt: sessionState.lastCheckAt || '',
     sessionMessage: sessionState.message || '',
-    readyForManualImport: true,
-    readyForLiveSync: Boolean(credentialStatus.exists)
+    readyForManualImport: true
   };
 }
 

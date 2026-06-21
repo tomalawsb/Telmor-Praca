@@ -17,7 +17,7 @@ export function OrderList({ orders = [], mode = 'open', compact = false } = {}) 
           <span>1–${orders.length} z ${orders.length}</span>
           <a href="${mode === 'closed' ? '#/orders-closed' : '#/orders-open'}">Pokaż więcej</a>
         </div>
-      ` : EmptyView({ title: 'Brak zleceń', text: 'Lista zostanie uzupełniona po synchronizacji albo po wgraniu danych demo.' })}
+      ` : EmptyView({ title: 'Brak zleceń', text: 'Lista zostanie uzupełniona po imporcie albo po wgraniu danych demo.' })}
     </section>
   `;
 }
@@ -39,7 +39,7 @@ export function OrderRow(order) {
 
 export function MobileOrderCards({ orders = [], mode = 'open' } = {}) {
   if (!orders.length) {
-    return EmptyView({ title: 'Brak zleceń', text: 'Dane pojawią się po synchronizacji albo po wgraniu danych demo.' });
+    return EmptyView({ title: 'Brak zleceń', text: 'Dane pojawią się po imporcie albo po wgraniu danych demo.' });
   }
 
   return `

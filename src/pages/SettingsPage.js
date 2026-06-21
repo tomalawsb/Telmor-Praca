@@ -9,14 +9,14 @@ import {
   verifyTelmorCredentialsLocally
 } from '../local/credentialVault.js';
 import { clearTelmorSessionState, getTelmorSessionState, saveTelmorSessionState } from '../local/sessionStore.js';
-import { getSyncDashboardStatus } from '../sync/deviceSyncService.js';
+import { getLocalStoreStatus } from '../local/localStoreStatus.js';
 
 export function SettingsPage() {
   setTimeout(() => {
     initAccountPanel();
     initTelmorVaultPanel();
     initDemoDataPanel();
-    initSyncSettingsPanel();
+    initLocalDataSettingsPanel();
   }, 0);
 
   return `
@@ -76,12 +76,12 @@ export function SettingsPage() {
         </article>
 
         <article class="panel">
-          <h2>Synchronizacja</h2>
-          <p class="muted">Ta wersja nie synchronizuje danych z zewnętrzną chmurą. Dane są lokalne.</p>
-          <p><strong>Status:</strong> <span id="settings-sync-status">Sprawdzanie...</span></p>
-          <p><strong>Kolejka:</strong> <span id="settings-sync-queue">-</span></p>
-          <p><strong>Konflikty:</strong> <span id="settings-sync-conflicts">-</span></p>
-          <a href="#/sync" class="secondary-button full-width text-center-link">Otwórz ekran lokalnych danych</a>
+          <h2>Dane lokalne</h2>
+          <p class="muted">Ta wersja nie synchronizuje danych z zewnętrzną chmurą. Wszystko zostaje w przeglądarce.</p>
+          <p><strong>Status:</strong> <span id="settings-local-data-status">Sprawdzanie...</span></p>
+          <p><strong>Rekordy lokalne:</strong> <span id="settings-local-data-count">-</span></p>
+          <p><strong>Kolekcje:</strong> <span id="settings-local-data-collections">-</span></p>
+          <a href="#/local-data" class="secondary-button full-width text-center-link">Otwórz ekran danych lokalnych</a>
         </article>
 
         <article class="panel">
@@ -269,21 +269,21 @@ function initDemoDataPanel() {
   });
 }
 
-async function initSyncSettingsPanel() {
-  const statusEl = document.querySelector('#settings-sync-status');
-  const queueEl = document.querySelector('#settings-sync-queue');
-  const conflictsEl = document.querySelector('#settings-sync-conflicts');
-  if (!statusEl || !queueEl || !conflictsEl) return;
+async function initLocalDataSettingsPanel() {
+  const statusEl = document.querySelector('#settings-local-data-status');
+  const countEl = document.querySelector('#settings-local-data-count');
+  const collectionsEl = document.querySelector('#settings-local-data-collections');
+  if (!statusEl || !countEl || !collectionsEl) return;
 
   try {
-    const status = await getSyncDashboardStatus();
-    statusEl.textContent = status.localOnly ? 'tylko lokalnie' : 'aktywny zapis zewnętrzny';
-    queueEl.textContent = `${status.queue.count} zmian lokalnych`;
-    conflictsEl.textContent = `${status.conflicts.length} konfliktów`;
+    const status = await getLocalStoreStatus();
+    statusEl.textContent = 'tylko lokalnie';
+    countEl.textContent = `${status.totalRecords} wpisów`;
+    collectionsEl.textContent = status.collections.map((item) => `${item.collectionName}: ${item.count}`).join(', ');
   } catch (error) {
     statusEl.textContent = error.message;
-    queueEl.textContent = '-';
-    conflictsEl.textContent = '-';
+    countEl.textContent = '-';
+    collectionsEl.textContent = '-';
   }
 }
 

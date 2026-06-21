@@ -47,7 +47,7 @@ export function createOrderModel(raw = {}) {
     doneAt: raw.doneAt || '',
     createdAt: raw.createdAt || new Date().toISOString(),
     updatedAt: raw.updatedAt || raw.modifiedAt || new Date().toISOString(),
-    lastSyncAt: raw.lastSyncAt || '',
+    lastImportAt: raw.lastImportAt || '',
     assignee: raw.assignee || '',
     searchTokens: raw.searchTokens || buildSearchTokens([
       number,
@@ -134,7 +134,6 @@ export function createAttachmentModel(raw = {}) {
     downloadUrl: raw.downloadUrl || '',
     localBlobKey: raw.localBlobKey || '',
     localOnly: Boolean(raw.localOnly),
-    syncPending: Boolean(raw.syncPending),
     createdAt,
     updatedAt: raw.updatedAt || createdAt,
     searchTokens: raw.searchTokens || buildSearchTokens([orderId, raw.customerId, fileName, fileKind, raw.description])
@@ -183,19 +182,6 @@ export function createNotificationModel(raw = {}) {
     customerId: raw.customerId || '',
     read: Boolean(raw.read),
     createdAt: raw.createdAt || new Date().toISOString(),
-    updatedAt: raw.updatedAt || new Date().toISOString()
-  };
-}
-
-export function createSyncStateModel(raw = {}) {
-  return {
-    id: raw.id || 'main',
-    userId: raw.userId || '',
-    deviceId: raw.deviceId || '',
-    lastOpenOrdersSyncAt: raw.lastOpenOrdersSyncAt || '',
-    lastClosedOrdersSyncAt: raw.lastClosedOrdersSyncAt || '',
-    lastFullSyncAt: raw.lastFullSyncAt || '',
-    lastError: raw.lastError || '',
     updatedAt: raw.updatedAt || new Date().toISOString()
   };
 }

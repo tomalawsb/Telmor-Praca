@@ -7,8 +7,8 @@ import { NotificationsPage } from './pages/NotificationsPage.js';
 import { SettingsPage } from './pages/SettingsPage.js';
 import { NotFoundPage } from './pages/NotFoundPage.js';
 import { SearchPage, initSearchPage } from './pages/SearchPage.js';
-import { TelmorSyncPage } from './pages/TelmorSyncPage.js';
-import { SyncPage } from './pages/SyncPage.js';
+import { TelmorImportPage } from './pages/TelmorImportPage.js';
+import { LocalDataPage } from './pages/LocalDataPage.js';
 import { WorkPage } from './pages/WorkPage.js';
 import { DiagnosticsPage } from './pages/DiagnosticsPage.js';
 import { LoadingView, ErrorView } from './components/LoadingView.js';
@@ -18,8 +18,8 @@ const routes = {
   '#/dashboard': DashboardPage,
   '#/search': SearchPage,
   '#/work': WorkPage,
-  '#/telmor-sync': TelmorSyncPage,
-  '#/sync': SyncPage,
+  '#/telmor-import': TelmorImportPage,
+  '#/local-data': LocalDataPage,
   '#/customers': CustomersPage,
   '#/history': HistoryPage,
   '#/notifications': NotificationsPage,

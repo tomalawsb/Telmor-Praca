@@ -28,7 +28,7 @@ export function ErrorView(error) {
   `;
 }
 
-export function EmptyView({ title = 'Brak danych', text = 'Dane pojawią się po synchronizacji.' } = {}) {
+export function EmptyView({ title = 'Brak danych', text = 'Dane pojawią się po imporcie.' } = {}) {
   return `
     <div class="empty-list-box">
       <strong>${title}</strong>

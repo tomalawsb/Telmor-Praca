@@ -1,17 +1,25 @@
 # Publikacja na GitHub Pages
 
-1. Zainstaluj zależności:
+Projekt ma gotowy workflow:
 
-```powershell
-npm install
+```text
+.github/workflows/pages.yml
 ```
 
-2. Zbuduj aplikację:
+## Kroki
+
+1. Wyślij projekt na GitHub.
+2. Wejdź w **Settings** → **Pages**.
+3. Ustaw **Source** na **GitHub Actions**.
+4. W zakładce **Actions** sprawdź workflow `Deploy PWA to GitHub Pages`.
+
+Workflow wykonuje:
 
 ```powershell
+npm ci
 npm run build
 ```
 
-3. Opublikuj katalog `dist` przez GitHub Pages albo workflow GitHub Actions.
+Następnie publikuje katalog `dist` jako stronę GitHub Pages.
 
 Konfiguracja Vite ma `base: './'`, więc aplikacja może działać także z podkatalogu repozytorium.

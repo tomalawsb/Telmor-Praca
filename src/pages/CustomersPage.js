@@ -28,7 +28,7 @@ export async function CustomersPage() {
               </article>
             `).join('')}
           </div>
-        ` : EmptyView({ title: 'Brak klientów', text: 'Klienci pojawią się po synchronizacji zleceń albo po wgraniu danych demo lokalnie.' })}
+        ` : EmptyView({ title: 'Brak klientów', text: 'Klienci pojawią się po imporcie zleceń albo po wgraniu danych demo lokalnie.' })}
       </section>
     </div>
   `;

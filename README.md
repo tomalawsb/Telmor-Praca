@@ -1,14 +1,16 @@
 # Telmor Praca PWA
 
-Statyczna aplikacja PWA przygotowana do publikacji na GitHub Pages.
+Statyczna aplikacja PWA przygotowana pod GitHub Pages.
 
 ## Założenia tej wersji
 
 - program działa jako PWA z GitHub Pages,
+- brak Firebase, Firestore, FCM i Functions,
 - brak backendu i brak zewnętrznej bazy,
 - dane są lokalne w przeglądarce,
 - powiadomienia działają tylko w otwartej aplikacji jako wpisy w module „Powiadomienia”,
-- dane logowania Telmor są zapisywane tylko lokalnie na urządzeniu.
+- dane logowania Telmor są zapisywane tylko lokalnie na urządzeniu,
+- publikacja odbywa się przez GitHub Actions.
 
 ## Uruchomienie lokalne
 
@@ -23,8 +25,14 @@ npm run dev
 npm run build
 ```
 
-Gotowe pliki będą w katalogu `dist`.
+Gotowe pliki powstają w katalogu `dist`.
 
-## Publikacja
+## Publikacja na GitHub Pages
 
-Projekt jest ustawiony pod statyczny hosting. Katalog `dist` można opublikować na GitHub Pages.
+W repozytorium ustaw:
+
+1. **Settings** → **Pages**.
+2. **Build and deployment** → **Source** → **GitHub Actions**.
+3. Wypchnij projekt na GitHub.
+
+Workflow z pliku `.github/workflows/pages.yml` zbuduje aplikację i opublikuje katalog `dist`.

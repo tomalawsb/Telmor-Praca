@@ -45,7 +45,7 @@ export async function WorkPage() {
             <h2>Najpierw do zrobienia</h2>
             <span>${today.length} pozycji</span>
           </div>
-          ${today.length ? renderCompactOrders(today) : EmptyView({ title: 'Brak pilnych spraw na liście', text: 'Po synchronizacji pojawią się tu nowe, pilne i oczekujące zlecenia.' })}
+          ${today.length ? renderCompactOrders(today) : EmptyView({ title: 'Brak pilnych spraw na liście', text: 'Po imporcie pojawią się tu nowe, pilne i oczekujące zlecenia.' })}
         </article>
 
         <aside class="work-side-stack">
