@@ -1,35 +1,33 @@
-# Start tutaj
+# START TUTAJ
 
-Ta paczka to uproszczona wersja PWA pod GitHub Pages.
+## Co zrobić
 
-## Uruchomienie lokalne
-
-```powershell
-npm install
-npm run dev
-```
-
-## Przygotowanie do publikacji
-
-```powershell
-npm run build
-```
-
-Katalog wynikowy: `dist`.
-
-## Publikacja
-
-Najprościej użyć gotowego workflow:
+1. Wypakuj paczkę do zwykłego folderu poza Dropboxem, np.:
 
 ```text
-.github/workflows/pages.yml
+E:\Programy\Telmor_Praca_PWA_16_0
 ```
 
-Na GitHubie włącz Pages z opcją **GitHub Actions**.
+2. Otwórz PowerShell w tym folderze.
+
+3. Uruchom:
+
+```powershell
+.\upload_to_github.ps1
+```
+
+4. Na GitHubie ustaw Pages:
+
+```text
+Settings -> Pages -> Source: Deploy from a branch -> gh-pages -> /root
+```
+
+5. Otwórz:
+
+```text
+https://tomalawsb.github.io/Telmor-Praca/
+```
 
 ## Ważne
 
-- nie konfigurujesz Firebase,
-- nie podajesz żadnych kluczy serwerowych,
-- nie ma powiadomień w tle po zamknięciu aplikacji,
-- dane zostają lokalnie w przeglądarce.
+Ten projekt nie używa `npm`. Nie uruchamiaj `npm ci`, bo nie jest potrzebne.

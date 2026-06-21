@@ -1,38 +1,68 @@
 # Telmor Praca PWA
 
-Statyczna aplikacja PWA przygotowana pod GitHub Pages.
+Wersja: **16.0 - 2106262222**
 
-## Założenia tej wersji
+To jest przepisana od zera, czysta wersja PWA pod GitHub Pages.
 
-- program działa jako PWA z GitHub Pages,
-- brak Firebase, Firestore, FCM i Functions,
-- brak backendu i brak zewnętrznej bazy,
-- dane są lokalne w przeglądarce,
-- powiadomienia działają tylko w otwartej aplikacji jako wpisy w module „Powiadomienia”,
-- dane logowania Telmor są zapisywane tylko lokalnie na urządzeniu,
-- publikacja odbywa się przez GitHub Actions.
+## Najważniejsze cechy
 
-## Uruchomienie lokalne
+- brak Firebase,
+- brak npm,
+- brak Vite,
+- brak `package-lock.json`,
+- brak `node_modules`,
+- brak kompilacji,
+- działa jako statyczna strona z GitHub Pages,
+- zapis danych lokalnie w przeglądarce przez `localStorage`,
+- powiadomienia tylko w otwartej aplikacji,
+- tryb offline po pierwszym uruchomieniu dzięki `service-worker.js`.
 
-```powershell
-npm install
-npm run dev
+## Pliki aplikacji
+
+```text
+index.html
+app.js
+styles.css
+manifest.webmanifest
+service-worker.js
+offline.html
+404.html
+.nojekyll
+icons/
+upload_to_github.ps1
 ```
 
-## Build
+## Publikacja
+
+Uruchom w PowerShellu z głównego katalogu projektu:
 
 ```powershell
-npm run build
+.\upload_to_github.ps1
 ```
 
-Gotowe pliki powstają w katalogu `dist`.
+Skrypt:
 
-## Publikacja na GitHub Pages
+1. klonuje repozytorium `https://github.com/tomalawsb/Telmor-Praca.git`,
+2. czyści stare pliki na branchu `main`,
+3. kopiuje aktualną aplikację,
+4. robi commit i push,
+5. tworzy czysty branch `gh-pages`,
+6. kopiuje tylko pliki potrzebne do działania strony,
+7. wymusza aktualizację brancha `gh-pages`.
 
-W repozytorium ustaw:
+## Ustawienie GitHub Pages
 
-1. **Settings** → **Pages**.
-2. **Build and deployment** → **Source** → **GitHub Actions**.
-3. Wypchnij projekt na GitHub.
+Na GitHubie ustaw:
 
-Workflow z pliku `.github/workflows/pages.yml` zbuduje aplikację i opublikuje katalog `dist`.
+```text
+Settings -> Pages -> Build and deployment
+Source: Deploy from a branch
+Branch: gh-pages
+Folder: /root
+```
+
+Adres aplikacji:
+
+```text
+https://tomalawsb.github.io/Telmor-Praca/
+```

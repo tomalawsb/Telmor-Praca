@@ -1,19 +1,30 @@
 # Architektura
 
-Projekt jest statycznym PWA pod GitHub Pages.
+Aplikacja jest statycznym PWA.
 
-## Główne katalogi
+## Warstwa plików
 
-- `src/components/` — wspólne elementy interfejsu,
-- `src/pages/` — ekrany aplikacji,
-- `src/data/` — modele i repozytoria danych,
-- `src/local/` — lokalna baza, sejf danych i usługi przeglądarki,
-- `src/telmor/` — parser oraz ręczny import danych Telmor,
-- `src/search/` — wyszukiwanie lokalne,
-- `src/styles/` — style CSS,
-- `public/` — manifest PWA, ikony, service worker,
-- `.github/workflows/` — publikacja na GitHub Pages.
+- `index.html` - punkt startowy,
+- `app.js` - cała logika aplikacji,
+- `styles.css` - cały wygląd,
+- `manifest.webmanifest` - instalacja PWA,
+- `service-worker.js` - cache offline,
+- `icons/` - ikony aplikacji.
 
-## Zasada działania
+## Dane
 
-Aplikacja nie używa Firebase, Firestore, FCM ani Functions. Dane są zapisywane lokalnie w przeglądarce przy użyciu IndexedDB/localStorage. Powiadomienia są tylko wpisami widocznymi w otwartej aplikacji.
+Dane są zapisane w `localStorage` pod kluczem:
+
+```text
+telmor_praca_pwa_v16_data
+```
+
+Ustawienia są zapisane pod kluczem:
+
+```text
+telmor_praca_pwa_v16_settings
+```
+
+## Powiadomienia
+
+Nie ma Firebase Cloud Messaging. Powiadomienia działają wyłącznie lokalnie, gdy aplikacja jest otwarta.
